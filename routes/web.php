@@ -36,6 +36,9 @@ Route::get('/posts', [PostController::class, 'index'])
 
 Route::post('/posts', [PostController::class, 'store']);
 
+Route::post('/posts/{post}', [PostController::class, 'destroy'])
+    ->name('post.destroy');
+
 Route::post('/posts/{post}/like', [PostLikeController::class, 'store'])
     ->name('posts.like');
 
