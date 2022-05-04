@@ -6,6 +6,7 @@ use App\Http\Controllers\Auth\LoginController;
 use App\Http\Controllers\Auth\LogoutController;
 use App\Http\Controllers\DashboardController;
 use App\Http\Controllers\PostController;
+use App\Http\Controllers\PostLikeController;
 
 
 Route::get('/', function () {
@@ -34,3 +35,6 @@ Route::get('/posts', [PostController::class, 'index'])
     ->name('posts');
 
 Route::post('/posts', [PostController::class, 'store']);
+
+Route::post('/posts/{id}/like', [PostLikeController::class, 'store'])
+    ->name('posts.likes');

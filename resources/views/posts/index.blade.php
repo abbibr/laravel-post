@@ -27,11 +27,32 @@
             <div class="mt-4">
                 @forelse($posts as $post)
                     <div class="mb-4">
-                        <a href="#">{{ $post->user->name }}</a>
+                        <a href="#"><b>{{ $post->user->name }}</b></a>
 
                         {{-- <span class="text-gray-600 text-sm">{{ $post->created_at->toTimeString() }}</span> --}}
-                        <span class="text-gray-600 text-sm">{{ $post->created_at->diffForHumans() }}</span>
+                        <span class="text-gray-600 text-sm"><b>{{ $post->created_at->diffForHumans() }}</b></span>
                         <p class="mb-2">{{ $post->body }}</p>
+
+                        <div class="flex items-center">
+                            <form action="#" method="post" class="mr-1">
+                                @csrf
+                                <button type="submit" class="text-blue-500">
+                                    Like
+                                </button>
+                            </form>
+
+                            <form action="#" method="post" class="mr-1">
+                                @csrf
+                                <button type="submit" class="text-blue-500">
+                                    Unlike
+                                </button>
+                            </form>
+
+                            <span>
+                                {{ $post->likes->count() }} 
+                                {{ Str::plural('like', $post->likes->count()) }}
+                            </span>
+                        </div>
                     </div>
                 @empty
                     There are no posts!
