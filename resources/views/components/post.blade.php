@@ -1,3 +1,44 @@
-<div>
-    <!-- It is never too late to be what you might have been. - George Eliot -->
+<div class="mb-4">
+    <a href="{{ route('users.posts', $post->user) }}"><b>{{ $post->user->name }}</b></a>
+
+    {{-- <span class="text-gray-600 text-sm">{{ $post->created_at->toTimeString() }}</span> --}}
+    <span class="text-gray-600 text-sm"><b>{{ $post->created_at->diffForHumans() }}</b></span>
+    <p class="mb-2">{{ $post->body }}</p>
+
+    {{-- @if ($post->ownedBy(auth()->user())) --}}
+    @can('delete', $post)
+        <form action="{{ route('post.destroy', $post->id) }}" method="post">
+            @csrf
+
+            <button type="submit" class="text-blue-500">
+                Delete  
+            </button>
+        </form>
+    @endcan
+    {{-- @endif --}}
+
+    <div class="flex items-center">
+        @auth
+            @if(!$post->likedBy(auth()->user()))
+                <form action="{{ route('posts.like', $post->id) }}" method="post" class="mr-1">
+                    @csrf
+                    <button type="submit" class="text-blue-500">
+                        Like
+                    </button>
+                </form>
+            @else
+                <form action="{{ route('posts.unlike', $post->id) }}" method="post" class="mr-1">
+                    @csrf
+                    <button type="submit" class="text-blue-500">
+                        Unlike
+                    </button>
+                </form>
+            @endif
+        @endauth
+
+        <span>
+            {{ $post->likes->count() }} 
+            {{ Str::plural('like', $post->likes->count()) }}
+        </span>
+    </div>
 </div>

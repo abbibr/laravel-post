@@ -9,10 +9,16 @@ use App\Models\Post;
 class PostController extends Controller
 {
     public function index(){
-        $posts = Post::with('user','likes')->orderBy('created_at', 'desc')->paginate(10);
+        $posts = Post::with('user','likes')->orderBy('created_at', 'desc')->paginate(15);
 
         return view('posts.index', [
             'posts' => $posts
+        ]);
+    }
+
+    public function show(Post $post){     
+        return view('posts.show', [
+            'post' => $post
         ]);
     }
 
