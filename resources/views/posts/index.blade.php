@@ -27,22 +27,22 @@
             <div class="mt-4">
                 @forelse($posts as $post)
                     <div class="mb-4">
-                        <a href="#"><b>{{ $post->user->name }}</b></a>
+                        <a href="{{ route('users.posts', $post->user) }}"><b>{{ $post->user->name }}</b></a>
 
                         {{-- <span class="text-gray-600 text-sm">{{ $post->created_at->toTimeString() }}</span> --}}
                         <span class="text-gray-600 text-sm"><b>{{ $post->created_at->diffForHumans() }}</b></span>
                         <p class="mb-2">{{ $post->body }}</p>
 
-                        @if ($post->ownedBy(auth()->user()))
-                            <div>
-                                <form action="{{ route('post.destroy', $post->id) }}" method="post">
-                                    @csrf
-                                    <button type="submit" class="text-blue-500">
-                                        Delete
-                                    </button>
-                                </form>
-                            </div>
-                        @endif
+                        {{-- @if ($post->ownedBy(auth()->user())) --}}
+                        @can('delete', $post)
+                            <form action="{{ route('post.destroy', $post->id) }}" method="post">
+                                @csrf
+                                <button type="submit" class="text-blue-500">
+                                    Delete
+                                </button>
+                            </form>
+                        @endcan
+                        {{-- @endif --}}
 
                         <div class="flex items-center">
                             @auth

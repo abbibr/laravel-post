@@ -7,6 +7,7 @@ use App\Http\Controllers\Auth\LogoutController;
 use App\Http\Controllers\DashboardController;
 use App\Http\Controllers\PostController;
 use App\Http\Controllers\PostLikeController;
+use App\Http\Controllers\UserPostController;
 
 
 Route::get('/', function () {
@@ -44,3 +45,6 @@ Route::post('/posts/{post}/like', [PostLikeController::class, 'store'])
 
 Route::post('/posts/{post}/unlike', [PostLikeController::class, 'destroy'])
     ->name('posts.unlike');
+
+Route::get('users/{user:username}/posts', [UserPostController::class, 'index'])
+    ->name('users.posts');
