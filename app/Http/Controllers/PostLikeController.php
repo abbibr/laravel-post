@@ -18,6 +18,8 @@ class PostLikeController extends Controller
         // $like = Post::find($id);
         // dd($post->likedBy(auth()->user())); -> like bosgan yoki bosmaganini tekshiradi (true yoki false qaytadi)
 
+        // dd($post->likes()->withTrashed()->get());
+
         if($post->likedBy(auth()->user())){
             return response(null, 409);
         }
@@ -26,7 +28,9 @@ class PostLikeController extends Controller
             'user_id' => auth()->user()->id,
         ]);
 
-        Mail::to($post->user)->send(new PostLiked(auth()->user(), $post));
+        if(!$post->likes()->onlyTrashed()->where('user_id', auth()->user()->id)->count()){
+            Mail::to($post->user)->send(new PostLiked(auth()->user(), $post));
+        }
 
         return redirect()->back();
     }
