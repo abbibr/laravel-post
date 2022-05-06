@@ -1,6 +1,6 @@
 <h1>Postly Application in Laravel</h1>
 
-<h2>Loyihani o`rnatish va ishlatish:</h2>
+<h2>Loyihani o`rnatish va ishlatish tartibi:</h2>
 
 <ol>
     <li>Loyihani yuklab oling</li>
