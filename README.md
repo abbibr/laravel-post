@@ -1,4 +1,4 @@
-<h1>Postly Application in Laravel</h1>
+<h1>Postly Application in Laravel Framework</h1>
 
 <h2>Loyihani o`rnatish va ishlatish tartibi:</h2>
 
